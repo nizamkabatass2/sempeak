@@ -21,15 +21,17 @@
 
         .blob { filter: blur(100px); position: absolute; z-index: -1; border-radius: 50%; opacity: 0.5; transition: all 1s ease; }
         
-        .service-card { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; position: relative; overflow: hidden; }
+        .service-card { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; position: relative; overflow: hidden; height: 100%; }
         .service-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 40px 60px -15px rgba(37, 99, 235, 0.15); }
         
         .process-num { position: absolute; top: -20px; right: -10px; font-size: 100px; font-weight: 900; opacity: 0.05; pointer-events: none; }
 
         /* Case Study Görsel Stili */
-        .case-card { position: relative; overflow: hidden; border-radius: 32px; transition: transform 0.4s ease; }
-        .case-card:hover { transform: scale(1.02); }
-        .case-overlay { background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0) 60%); }
+        .case-card { position: relative; overflow: hidden; border-radius: 32px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .case-card:hover { transform: scale(1.01); }
+        .case-overlay { background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.2) 100%); }
+        .case-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .case-card:hover .case-img { transform: scale(1.1); }
 
         /* Ansiklopedi Scroll Bar */
         .encyclopedia-scroll::-webkit-scrollbar { width: 6px; }
@@ -48,19 +50,19 @@
         <div class="flex items-center gap-3">
             <div class="bg-slate-900 text-white w-10 h-10 rounded-[14px] flex items-center justify-center font-extrabold text-2xl shadow-xl shadow-slate-200">S</div>
             <div>
-                <h1 class="font-extrabold text-xl tracking-tighter leading-none">Sempeak</h1>
+                <h1 class="font-extrabold text-xl tracking-tighter leading-none italic">Sempeak</h1>
                 <span class="text-blue-600 text-[9px] font-black tracking-[0.25em] uppercase">Content Studio</span>
             </div>
         </div>
         <div class="hidden md:flex items-center gap-10 text-[11px] font-black tracking-widest text-slate-500">
-            <a href="#turler" class="hover:text-blue-600 transition-colors uppercase">Türler</a>
+            <a href="#turler" class="hover:text-blue-600 transition-colors uppercase">Hizmetler</a>
             <a href="#surec" class="hover:text-blue-600 transition-colors uppercase">Süreç</a>
-            <a href="#case-studies" class="hover:text-blue-600 transition-colors uppercase">Case Study</a>
-            <button class="bg-slate-900 text-white px-7 py-3 rounded-xl hover:bg-blue-600 transition-all shadow-lg shadow-slate-200 uppercase tracking-tighter text-xs font-black">TEKLİF AL</button>
+            <a href="#case-studies" class="hover:text-blue-600 transition-colors uppercase">Analizler</a>
+            <button class="bg-slate-900 text-white px-7 py-3 rounded-xl hover:bg-blue-600 transition-all shadow-lg shadow-slate-200 uppercase text-[10px] font-black tracking-tighter">TEKLİF AL</button>
         </div>
     </nav>
 
-    <!-- SAYFA 1: Ana Giriş (Hero) -->
+    <!-- SAYFA 1: Hero (KORUNDU) -->
     <section class="min-h-[90vh] flex flex-row items-center justify-center px-6 lg:px-24 gap-12 lg:gap-20 py-10 relative z-10">
         <div class="w-[45%] flex flex-col justify-center">
             <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-1.5 rounded-full w-fit mb-8 shadow-xl shadow-blue-200">
@@ -97,7 +99,7 @@
                         <button id="backBtn" class="hidden text-slate-400 hover:text-slate-900 text-[10px] font-black uppercase tracking-widest transition-all">← Geri</button>
                     </div>
                     <div class="step-content active" id="step1">
-                        <h3 class="text-3xl font-black mb-3 tracking-tight text-slate-900">Neye ihtiyacınız var?</h3>
+                        <h3 class="text-3xl font-black mb-3 tracking-tight text-slate-900 italic">Neye ihtiyacınız var?</h3>
                         <p class="text-slate-400 text-sm mb-10 font-medium italic">Size en uygun uzman ekibi yönlendirelim.</p>
                         <div class="grid grid-cols-2 gap-5">
                             <button onclick="goToStep(2)" class="p-6 rounded-[28px] border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 hover:bg-white hover:shadow-xl transition-all text-left group">
@@ -119,14 +121,14 @@
                         </div>
                     </div>
                     <div class="step-content" id="step2">
-                        <h3 class="text-3xl font-black mb-10 tracking-tight">Kanalı açalım.</h3>
+                        <h3 class="text-3xl font-black mb-10 tracking-tight italic">Kanalı açalım.</h3>
                         <div class="space-y-8">
                             <input type="email" placeholder="is@marka.com" class="w-full bg-slate-50 border-2 border-transparent rounded-[20px] px-8 py-5 text-lg font-bold focus:border-blue-500 focus:bg-white focus:outline-none transition-all">
                             <button onclick="goToStep(3)" class="w-full bg-slate-900 text-white py-6 rounded-[20px] font-black text-sm tracking-widest hover:bg-blue-600 transition-all shadow-xl">DEVAM ET</button>
                         </div>
                     </div>
                     <div class="step-content" id="step3">
-                        <h3 class="text-3xl font-black mb-10 tracking-tight">Hedefiniz nedir?</h3>
+                        <h3 class="text-3xl font-black mb-10 tracking-tight italic">Hedefiniz nedir?</h3>
                         <div class="space-y-8">
                             <textarea placeholder="Projenizden kısaca bahsedin..." class="w-full bg-slate-50 border-2 border-transparent rounded-[24px] px-8 py-5 text-lg font-bold focus:border-blue-500 focus:bg-white transition-all h-40 resize-none"></textarea>
                             <button onclick="finishForm()" class="w-full bg-blue-600 text-white py-6 rounded-[20px] font-black text-sm tracking-widest hover:bg-blue-700 transition-all uppercase">Teklif Oluştur</button>
@@ -135,41 +137,80 @@
                 </div>
                 <div id="successSection" class="hidden py-14 flex flex-col items-center text-center">
                     <div class="w-24 h-24 bg-green-500 text-white rounded-[32px] flex items-center justify-center text-5xl shadow-2xl mb-8">✓</div>
-                    <h3 class="text-4xl font-black mb-4">Harika!</h3>
+                    <h3 class="text-4xl font-black mb-4 italic">Harika!</h3>
                     <button onclick="resetForm()" class="text-blue-600 font-black text-xs uppercase tracking-widest border-b-2 border-blue-600 pb-1">Yeni Talep</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SAYFA 2: İçerik Türleri -->
+    <!-- SAYFA 2: Zengin Ekosistem (Hizmetler Genişletildi) -->
     <section id="turler" class="py-32 px-6 lg:px-20 relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="mb-20">
-                <div class="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-4">Portfolyomuz</div>
-                <h2 class="text-5xl lg:text-7xl font-extrabold tracking-tighter text-slate-900 leading-none">Zengin Ekosistem.</h2>
+                <div class="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-4">Üretim Yelpazemiz</div>
+                <h2 class="text-5xl lg:text-7xl font-extrabold tracking-tighter text-slate-900 leading-none italic">Zengin Ekosistem.</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 1 -->
                 <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-blue-600">
                     <div class="flex justify-between items-start mb-10"><div class="text-3xl">📝</div><div class="text-slate-200 font-black text-5xl">01</div></div>
                     <h4 class="text-2xl font-black mb-4 tracking-tight">Otorite Blogları</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Google'da en üstte kalmak için tasarlanan derinlemesine rehberler.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Google'da en üstte kalmak için tasarlanan derinlemesine uzman rehberleri.</p>
                 </div>
+                <!-- 2 -->
                 <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-purple-600">
                     <div class="flex justify-between items-start mb-10"><div class="text-3xl">🛒</div><div class="text-slate-200 font-black text-5xl">02</div></div>
                     <h4 class="text-2xl font-black mb-4 tracking-tight">Dönüşüm Metinleri</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed font-medium">E-ticaret sepetlerini dolduran ikna edici açıklamalar.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">E-ticaret sepetlerini dolduran ikna edici ürün ve kategori metinleri.</p>
                 </div>
+                <!-- 3 -->
                 <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-emerald-600">
                     <div class="flex justify-between items-start mb-10"><div class="text-3xl">📂</div><div class="text-slate-200 font-black text-5xl">03</div></div>
                     <h4 class="text-2xl font-black mb-4 tracking-tight">Kategori Mimarisi</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Hiyerarşiyi güçlendiren, stratejik kategori metinleri.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Hiyerarşiyi güçlendiren, stratejik SEO kategori ağaçları.</p>
+                </div>
+                <!-- 4 -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-orange-600">
+                    <div class="flex justify-between items-start mb-10"><div class="text-3xl">⚡</div><div class="text-slate-200 font-black text-5xl">04</div></div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Copywriting</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Kısa, öz ve çarpıcı; reklam kanalları için yüksek etkili kopyalar.</p>
+                </div>
+                <!-- 5 -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-pink-600">
+                    <div class="flex justify-between items-start mb-10"><div class="text-3xl">🌎</div><div class="text-slate-200 font-black text-5xl">05</div></div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Lokalizasyon</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Global markaların yerel kültüre ve dile tam uyumlu içerik dönüşümü.</p>
+                </div>
+                <!-- 6 -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-cyan-600">
+                    <div class="flex justify-between items-start mb-10"><div class="text-3xl">🎙️</div><div class="text-slate-200 font-black text-5xl">06</div></div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Video Scripting</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">YouTube ve TikTok için izleyiciyi tutan dinamik video senaryoları.</p>
+                </div>
+                <!-- 7 -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-indigo-600">
+                    <div class="flex justify-between items-start mb-10"><div class="text-3xl">📊</div><div class="text-slate-200 font-black text-5xl">07</div></div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">White Papers</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">B2B sektöründe liderlik kuran teknik raporlar ve vaka analizleri.</p>
+                </div>
+                <!-- 8 -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-red-600">
+                    <div class="flex justify-between items-start mb-10"><div class="text-3xl">📧</div><div class="text-slate-200 font-black text-5xl">08</div></div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Email Marketing</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Açılma oranlarını artıran, sadakat odaklı bülten kurguları.</p>
+                </div>
+                <!-- 9 -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-yellow-500">
+                    <div class="flex justify-between items-start mb-10"><div class="text-3xl">💎</div><div class="text-slate-200 font-black text-5xl">09</div></div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Premium PR</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Prestijli mecralar için hazırlanan marka imajı yüksek haber içerikleri.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SAYFA 3: Süreç (Koyu Bölüm - Yeri Düzeltildi) -->
+    <!-- SAYFA 3: Süreç (Koyu Konsept) -->
     <section id="surec" class="py-32 bg-slate-950 text-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="flex flex-col items-center text-center mb-28">
@@ -193,71 +234,73 @@
                     <div class="process-num">03</div>
                     <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-pink-500 font-black mb-8 group-hover:bg-pink-600 group-hover:text-white transition-all">03</div>
                     <h5 class="text-2xl font-black mb-4 tracking-tight">Kusursuz Edit</h5>
-                    <p class="text-slate-400 text-sm leading-relaxed">3 aşamalı SEO, dil bilgisi ve akıcılık testleri.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">3 aşamalı SEO, dil bilgisi ve akıcılık testleri uyguluyoruz.</p>
                 </div>
                 <div class="glass-dark p-10 rounded-[48px] relative group mt-12 border-t-2 border-white/5">
                     <div class="process-num">04</div>
                     <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-emerald-500 font-black mb-8 group-hover:bg-emerald-600 group-hover:text-white transition-all">04</div>
                     <h5 class="text-2xl font-black mb-4 tracking-tight">Performans</h5>
-                    <p class="text-slate-400 text-sm leading-relaxed">Tam raporlamasıyla veriye dayalı çıktı teslimi.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Tam raporlamasıyla veriye dayalı çıktı teslimi yapıyoruz.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SAYFA 4: Case Study Analizleri (Görseldeki Gibi Tasarlandı) -->
+    <!-- SAYFA 4: Case Study Analizleri (Görsel ve Markalar Eklendi) -->
     <section id="case-studies" class="py-32 bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-16">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                 <div>
+                    <span class="text-blue-500 font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">Proven Success</span>
                     <h2 class="text-5xl font-black tracking-tight mb-4 italic">Case Study Analizleri</h2>
-                    <p class="text-slate-400">İçerikle değer kattığımız gerçek başarı hikayeleri.</p>
+                    <p class="text-slate-400 max-w-md">Gerçek verilerle, markaların dijital dönüşümüne nasıl liderlik ettiğimizi görün.</p>
                 </div>
-                <a href="#" class="text-blue-400 font-black text-xs uppercase tracking-widest border-b border-blue-400 pb-1 hover:text-blue-300">Tümünü Görüntüle →</a>
+                <a href="#" class="text-blue-400 font-black text-xs uppercase tracking-widest border-b border-blue-400 pb-2 hover:text-blue-300 transition-all">Tüm Analizleri Keşfet →</a>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- Case 1: Koçtaş -->
                 <div class="group">
-                    <div class="case-card h-[400px] bg-slate-800 relative">
-                        <!-- Arka Plan Görseli Yerine Şık Gradient/Desen -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-blue-500/10"></div>
-                        <div class="absolute top-8 left-8 bg-[#e45d3a] px-5 py-2 rounded-lg font-black text-xs uppercase tracking-widest shadow-xl">KOÇTAŞ</div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                            <button class="bg-white text-slate-900 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl">ANALİZİ GÖRÜNTÜLE</button>
-                        </div>
+                    <div class="case-card h-[450px] relative">
+                        <!-- Arka Plan Görseli (E-ticaret/Ev Geliştirme Temalı) -->
+                        <img src="https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=1200&auto=format&fit=crop" alt="Koçtaş Case Study" class="case-img">
                         <div class="case-overlay absolute inset-0 z-10"></div>
-                    </div>
-                    <div class="mt-8 flex justify-between items-start">
-                        <div>
-                            <h4 class="text-2xl font-black mb-2">Koçtaş Ev Geliştirme</h4>
-                            <p class="text-slate-500 text-sm font-medium italic">Organik trafikte ve kategori otoritesinde devasa büyüme.</p>
+                        <div class="absolute top-8 left-8 bg-[#e45d3a] px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl z-20">KOÇTAŞ</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-30 scale-90 group-hover:scale-100">
+                            <button class="bg-white text-slate-900 px-10 py-5 rounded-[24px] font-black text-xs uppercase tracking-widest shadow-[0_20px_50px_rgba(0,0,0,0.3)]">DETAYLARI İNCELE</button>
                         </div>
-                        <div class="text-right">
-                            <div class="text-[#e45d3a] text-4xl font-black italic">%215</div>
-                            <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Trafik Artışı</div>
+                        <div class="absolute bottom-8 left-8 right-8 z-20 flex justify-between items-end">
+                            <div class="max-w-[60%]">
+                                <span class="text-white/60 text-[10px] font-black uppercase tracking-widest block mb-2">Sektör: E-Ticaret</span>
+                                <h4 class="text-3xl font-black italic leading-tight">Ev Geliştirme Kategorisinde Organik Domine</h4>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[#e45d3a] text-6xl font-black italic tracking-tighter">%215</div>
+                                <div class="text-[10px] font-black text-white/50 uppercase tracking-widest">Trafik Artışı</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Case 2: Finans -->
                 <div class="group">
-                    <div class="case-card h-[400px] bg-slate-800 relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-indigo-500/10"></div>
-                        <div class="absolute top-8 left-8 bg-[#10b981] px-5 py-2 rounded-lg font-black text-xs uppercase tracking-widest shadow-xl">FİNTEK</div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                            <button class="bg-white text-slate-900 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl">ANALİZİ GÖRÜNTÜLE</button>
-                        </div>
+                    <div class="case-card h-[450px] relative">
+                        <!-- Arka Plan Görseli (Finans/Tech Temalı) -->
+                        <img src="https://images.unsplash.com/photo-1551288049-bbbda546697a?q=80&w=1200&auto=format&fit=crop" alt="Finans Case Study" class="case-img">
                         <div class="case-overlay absolute inset-0 z-10"></div>
-                    </div>
-                    <div class="mt-8 flex justify-between items-start">
-                        <div>
-                            <h4 class="text-2xl font-black mb-2">Küresel Finans Devleri</h4>
-                            <p class="text-slate-500 text-sm font-medium italic">Otorite skorunda (DA) +22 puanlık stratejik gelişim.</p>
+                        <div class="absolute top-8 left-8 bg-blue-600 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl z-20">GARANTİ BBVA</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-30 scale-90 group-hover:scale-100">
+                            <button class="bg-white text-slate-900 px-10 py-5 rounded-[24px] font-black text-xs uppercase tracking-widest shadow-[0_20px_50px_rgba(0,0,0,0.3)]">DETAYLARI İNCELE</button>
                         </div>
-                        <div class="text-right">
-                            <div class="text-[#10b981] text-4xl font-black italic">+22</div>
-                            <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">DA SKORU</div>
+                        <div class="absolute bottom-8 left-8 right-8 z-20 flex justify-between items-end">
+                            <div class="max-w-[60%]">
+                                <span class="text-white/60 text-[10px] font-black uppercase tracking-widest block mb-2">Sektör: Finans</span>
+                                <h4 class="text-3xl font-black italic leading-tight">Finansal Okuryazarlıkta Otorite İnşası</h4>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-blue-500 text-6xl font-black italic tracking-tighter">+22</div>
+                                <div class="text-[10px] font-black text-white/50 uppercase tracking-widest">Otorite Puanı</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -265,82 +308,90 @@
         </div>
     </section>
 
-    <!-- SAYFA 5: İçerik Pazarlaması Ansiklopedisi (Scrollable Info Box) -->
-    <section class="py-24 px-6 lg:px-20 bg-white relative">
+    <!-- SAYFA 5: İçerik Pazarlaması Ansiklopedisi (Scrollable) -->
+    <section class="py-24 px-6 lg:px-20 bg-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
             <div class="w-full lg:w-1/3">
                 <div class="text-blue-600 font-black text-xs uppercase tracking-[0.4em] mb-4">Knowledge Base</div>
                 <h2 class="text-4xl font-black tracking-tighter text-slate-900 mb-6 italic">İçerik Pazarlaması Ansiklopedisi</h2>
-                <p class="text-slate-500 font-medium mb-10 leading-relaxed italic">Sempeak uzmanlığıyla, içerik dünyasının teknik dinamiklerini keşfedin. Bilgi, güçtür.</p>
-                <div class="flex items-center gap-4 text-blue-600 font-black text-[10px] uppercase tracking-widest animate-pulse">
+                <p class="text-slate-500 font-medium mb-10 leading-relaxed italic">Sempeak uzmanlığıyla, içerik dünyasının teknik dinamiklerini keşfedin. Bilgi, dijital dünyada tek gerçek güçtür.</p>
+                <div class="flex items-center gap-4 text-blue-600 font-black text-[10px] uppercase tracking-widest animate-bounce">
                     <span>Aşağı Kaydırın</span>
                     <div class="w-12 h-0.5 bg-blue-600"></div>
                 </div>
             </div>
 
             <div class="w-full lg:w-2/3">
-                <div class="glass rounded-[40px] p-2 border-slate-100 shadow-2xl">
-                    <div class="encyclopedia-scroll h-[400px] overflow-y-auto px-10 py-10 space-y-12 bg-slate-50/30 rounded-[38px]">
+                <div class="glass rounded-[48px] p-2 border-slate-100 shadow-2xl relative">
+                    <div class="encyclopedia-scroll h-[450px] overflow-y-auto px-10 py-12 space-y-12 bg-slate-50/50 rounded-[46px]">
                         <!-- Madde 1 -->
-                        <div class="border-b border-slate-100 pb-10">
+                        <div class="border-b border-slate-200 pb-12 last:border-0">
                             <h4 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight mb-4 flex items-center gap-3">
                                 <span class="text-blue-600 italic">01.</span> İçerik Pazarlaması Nedir?
                             </h4>
-                            <p class="text-slate-500 leading-relaxed font-medium">Hedef kitlenize değerli, alakalı ve tutarlı içerikler sunarak onları etkileme, sadakat oluşturma ve kârlı müşteri eylemleri yaratma sürecidir. Sadece satmak değil, rehberlik etmektir.</p>
+                            <p class="text-slate-500 leading-relaxed font-medium">Hedef kitlenize değerli, alakalı ve tutarlı içerikler sunarak onları etkileme, sadakat oluşturma ve kârlı müşteri eylemleri yaratma sürecidir. Sadece satmak değil, markanızı bir bilgi kaynağına dönüştürmektir.</p>
                         </div>
                         <!-- Madde 2 -->
-                        <div class="border-b border-slate-100 pb-10">
+                        <div class="border-b border-slate-200 pb-12 last:border-0">
                             <h4 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight mb-4 flex items-center gap-3">
                                 <span class="text-purple-600 italic">02.</span> Stratejik İçerik Üretimi
                             </h4>
                             <p class="text-slate-500 leading-relaxed font-medium">Veriye dayalı kitle analizi ve funnel (huni) aşamalarına göre kurgulanan üretim modelidir. Farkındalık, değerlendirme ve karar aşamaları için ayrı stratejiler uygulanır.</p>
                         </div>
                         <!-- Madde 3 -->
-                        <div class="border-b border-slate-100 pb-10">
+                        <div class="border-b border-slate-200 pb-12 last:border-0">
                             <h4 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight mb-4 flex items-center gap-3">
                                 <span class="text-pink-600 italic">03.</span> Dönüşüm Odaklı İçerik (CRO)
                             </h4>
-                            <p class="text-slate-500 leading-relaxed font-medium">Okuyucuyu bir aksiyona (satın alma, form doldurma) iten içeriklerdir. Psikolojik tetikleyiciler ve güçlü Call-to-Action (CTA) kullanımı bu alanın temelidir.</p>
+                            <p class="text-slate-500 leading-relaxed font-medium">Okuyucuyu bir aksiyona (satın alma, kayıt, form doldurma) iten içeriklerdir. Psikolojik tetikleyiciler ve güçlü Call-to-Action (CTA) kullanımı bu alanın temelini oluşturur.</p>
                         </div>
                         <!-- Madde 4 -->
-                        <div>
+                        <div class="border-b border-slate-200 pb-12 last:border-0">
                             <h4 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight mb-4 flex items-center gap-3">
                                 <span class="text-emerald-600 italic">04.</span> SEO ve İçerik İlişkisi
                             </h4>
-                            <p class="text-slate-500 leading-relaxed font-medium">Modern SEO, sadece anahtar kelime değil, kullanıcı niyetini (User Intent) karşılamaktır. Semantik içerik yapıları, arama motorlarında sürdürülebilir otorite sağlar.</p>
+                            <p class="text-slate-500 leading-relaxed font-medium">Modern SEO, anahtar kelime doldurmak değil, kullanıcı niyetini (User Intent) en iyi karşılayan içeriği sunmaktır. Semantik içerik yapıları, arama motorlarında sürdürülebilir otorite sağlar.</p>
                         </div>
                     </div>
+                    <!-- Alt Gölgelik -->
+                    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/80 to-transparent pointer-events-none rounded-b-[48px]"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="px-6 lg:px-20 py-16 bg-white border-t border-slate-100 relative z-50">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-            <div class="flex items-center gap-3">
-                <div class="bg-slate-900 text-white w-8 h-8 rounded-lg flex items-center justify-center font-extrabold text-xl italic">S</div>
-                <h1 class="font-extrabold text-xl tracking-tighter leading-none italic">Sempeak</h1>
+    <footer class="px-6 lg:px-20 py-20 bg-white border-t border-slate-100 relative z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="flex items-center gap-4">
+                <div class="bg-slate-900 text-white w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-2xl italic shadow-lg shadow-slate-200">S</div>
+                <h1 class="font-extrabold text-2xl tracking-tighter leading-none italic text-slate-900">Sempeak</h1>
             </div>
-            <div class="flex gap-10 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                <a href="#" class="hover:text-blue-600">Linkedin</a>
-                <a href="#" class="hover:text-blue-600">Instagram</a>
-                <a href="#" class="hover:text-blue-600">İletişim</a>
+            <div class="flex flex-wrap justify-center gap-10 text-[11px] font-black text-slate-500 uppercase tracking-widest">
+                <a href="#" class="hover:text-blue-600 transition-colors">Vaka Analizleri</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">Ekibimiz</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">İletişim</a>
             </div>
-            <div class="text-[9px] font-black text-slate-300 uppercase tracking-[0.3em]">SEMPEAK CONTENT STUDIO © 2024</div>
+            <div class="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">SEMPEAK CONTENT STUDIO © 2024</div>
         </div>
     </footer>
 
     <script>
-        // Form Adımları
+        // Form Akışı
         let currentStep = 1;
         function goToStep(step) {
             document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
             document.getElementById('step' + step).classList.add('active');
             const dots = document.getElementById('progressDots').children;
             for(let i=0; i<dots.length; i++) {
-                if(i < step) { dots[i].classList.replace('w-4', 'w-14'); dots[i].classList.replace('bg-slate-100', 'bg-slate-900'); }
-                else { dots[i].classList.replace('w-14', 'w-4'); dots[i].classList.replace('bg-slate-900', 'bg-slate-100'); }
+                if(i < step) { 
+                    dots[i].classList.replace('w-4', 'w-14'); 
+                    dots[i].classList.replace('bg-slate-100', 'bg-slate-900'); 
+                } else { 
+                    dots[i].classList.replace('w-14', 'w-4'); 
+                    dots[i].classList.replace('bg-slate-900', 'bg-slate-100'); 
+                }
             }
             document.getElementById('backBtn').classList.toggle('hidden', step === 1);
             currentStep = step;
