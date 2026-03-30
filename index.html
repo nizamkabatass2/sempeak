@@ -7,141 +7,318 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.4); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .glass-dark { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
         .step-content { display: none; }
-        .step-content.active { display: block; animation: slideIn 0.4s ease-out; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-        .blob { filter: blur(80px); position: absolute; z-index: -1; border-radius: 50%; opacity: 0.4; }
+        .step-content.active { display: block; animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .blob { filter: blur(100px); position: absolute; z-index: -1; border-radius: 50%; opacity: 0.5; transition: all 1s ease; }
+        
+        /* Dinamik Kart Efektleri */
+        .service-card { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; position: relative; overflow: hidden; }
+        .service-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 40px 60px -15px rgba(37, 99, 235, 0.15); }
+        .service-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; h: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: 0.5s; }
+        .service-card:hover::before { left: 100%; }
+
+        /* Süreç Numaraları */
+        .process-num { position: absolute; top: -20px; right: -10px; font-size: 100px; font-weight: 900; opacity: 0.05; pointer-events: none; }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 overflow-x-hidden min-h-screen flex flex-col select-none relative">
+<body class="bg-[#f8fafc] text-slate-900 overflow-x-hidden min-h-screen select-none relative">
 
     <!-- Arka Plan Dekorasyonu -->
-    <div class="blob w-96 h-96 bg-blue-400 top-[-10%] left-[-5%] animate-pulse"></div>
-    <div class="blob w-[30rem] h-[30rem] bg-purple-300 bottom-[-10%] right-[-5%]"></div>
-    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <div class="blob w-[40rem] h-[40rem] bg-blue-400/20 top-[-10%] left-[-10%] animate-pulse"></div>
+    <div class="blob w-[35rem] h-[35rem] bg-purple-300/20 top-[30%] right-[-10%]"></div>
+    <div class="blob w-[30rem] h-[30rem] bg-indigo-300/10 bottom-0 left-[20%]"></div>
+    <div class="absolute inset-0 opacity-[0.04] pointer-events-none" style="background-image: radial-gradient(#1e293b 1.5px, transparent 1.5px); background-size: 48px 48px;"></div>
 
     <!-- Navigasyon -->
-    <nav class="flex items-center justify-between px-6 lg:px-20 py-6 glass sticky top-0 z-50">
+    <nav class="flex items-center justify-between px-6 lg:px-20 py-5 glass sticky top-0 z-[100]">
         <div class="flex items-center gap-3">
-            <div class="bg-slate-900 text-white w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-2xl shadow-xl shadow-slate-200">S</div>
+            <div class="bg-slate-900 text-white w-10 h-10 rounded-[14px] flex items-center justify-center font-extrabold text-2xl shadow-xl shadow-slate-200">S</div>
             <div>
                 <h1 class="font-extrabold text-xl tracking-tighter leading-none">Sempeak</h1>
-                <span class="text-blue-600 text-[9px] font-bold tracking-[0.2em] uppercase">Content Agency</span>
+                <span class="text-blue-600 text-[9px] font-black tracking-[0.25em] uppercase">Content Studio</span>
             </div>
         </div>
-        <div class="flex items-center gap-8">
-            <button class="bg-slate-900 text-white px-6 py-2.5 rounded-xl text-[11px] font-extrabold hover:bg-blue-600 transition-all">PROJE BAŞLAT</button>
+        <div class="hidden md:flex items-center gap-10 text-[11px] font-black tracking-widest text-slate-500">
+            <a href="#turler" class="hover:text-blue-600 transition-colors uppercase">İçerik Türleri</a>
+            <a href="#surec" class="hover:text-blue-600 transition-colors uppercase">Çalışma Süreci</a>
+            <button class="bg-slate-900 text-white px-7 py-3 rounded-xl hover:bg-blue-600 transition-all shadow-lg shadow-slate-200">PROJE BAŞLAT</button>
         </div>
     </nav>
 
-    <!-- Ana İçerik (Flex-Row: Her zaman yan yana) -->
-    <main class="flex-1 flex flex-row items-center justify-center px-6 lg:px-24 gap-8 lg:gap-16 py-10 relative z-10">
-        
+    <!-- SAYFA 1: Ana Giriş -->
+    <section class="min-h-[90vh] flex flex-row items-center justify-center px-6 lg:px-24 gap-12 lg:gap-20 py-10 relative z-10">
         <!-- Sol: Yazı Alanı -->
         <div class="w-[45%] flex flex-col justify-center">
-            <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-full w-fit mb-6 shadow-lg shadow-blue-100">
-                <span class="text-[10px] font-extrabold uppercase tracking-widest">Premium Content</span>
+            <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-1.5 rounded-full w-fit mb-8 shadow-xl shadow-blue-200">
+                <span class="text-[10px] font-black uppercase tracking-[0.2em]">Data-Driven Content</span>
             </div>
-            <h2 class="text-4xl lg:text-7xl font-extrabold leading-[1.1] tracking-tighter mb-6">
-                Markanızı <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Zirveye Taşıyın.</span>
+            <h2 class="text-5xl lg:text-[5.5rem] font-extrabold leading-[1] tracking-tighter mb-8 italic">
+                Dijitalde <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600">Fark Yaratın.</span>
             </h2>
-            <p class="text-slate-500 text-sm lg:text-xl max-w-md leading-relaxed mb-10">
-                SEO uyumlu ve yaratıcı içeriklerle <span class="text-slate-900 font-bold">dijital görünürlüğünüzü</span> kalıcı hale getiriyoruz.
+            <p class="text-slate-500 text-base lg:text-xl max-w-lg leading-relaxed mb-12 font-medium">
+                Sıradan metinlerin ötesine geçin. <span class="text-slate-900 font-bold border-b-2 border-blue-100">Algoritmaları ve insanları</span> aynı anda etkileyen içerik mimarisi.
             </p>
-            <div class="flex gap-10 border-t border-slate-200 pt-8">
+            <div class="flex gap-12 border-t border-slate-200 pt-10">
                 <div>
-                    <div class="text-2xl lg:text-4xl font-extrabold">1.2M+</div>
-                    <div class="text-[10px] font-bold text-slate-400 uppercase">Kelime Deneyimi</div>
+                    <div class="text-3xl lg:text-5xl font-black text-slate-900">1.2M+</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-2">Analiz Edilen Kelime</div>
                 </div>
                 <div>
-                    <div class="text-2xl lg:text-4xl font-extrabold">%85</div>
-                    <div class="text-[10px] font-bold text-slate-400 uppercase">Dönüşüm Artışı</div>
+                    <div class="text-3xl lg:text-5xl font-black text-slate-900">%85</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-2">Dönüşüm Verimliliği</div>
                 </div>
             </div>
         </div>
 
         <!-- Sağ: Form Alanı -->
         <div class="w-[55%] flex justify-end">
-            <div class="glass w-full max-w-lg rounded-[40px] shadow-2xl p-8 lg:p-12 relative overflow-hidden" id="formCard">
-                
+            <div class="glass w-full max-w-lg rounded-[48px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] p-10 lg:p-14 relative overflow-hidden group/form">
                 <div id="formSection">
-                    <!-- Progress Bar -->
-                    <div class="flex justify-between items-center mb-8">
-                        <div class="flex gap-2" id="progressDots">
-                            <div class="h-1.5 w-12 bg-slate-900 rounded-full transition-all"></div>
-                            <div class="h-1.5 w-3 bg-slate-100 rounded-full transition-all"></div>
-                            <div class="h-1.5 w-3 bg-slate-100 rounded-full transition-all"></div>
+                    <div class="flex justify-between items-center mb-10">
+                        <div class="flex gap-2.5" id="progressDots">
+                            <div class="h-2 w-14 bg-slate-900 rounded-full transition-all"></div>
+                            <div class="h-2 w-4 bg-slate-100 rounded-full transition-all"></div>
+                            <div class="h-2 w-4 bg-slate-100 rounded-full transition-all"></div>
                         </div>
-                        <button id="backBtn" class="hidden text-slate-400 hover:text-slate-900 text-[10px] font-bold uppercase tracking-widest">Geri</button>
+                        <button id="backBtn" class="hidden text-slate-400 hover:text-slate-900 text-[10px] font-black uppercase tracking-widest transition-all">← Geri</button>
                     </div>
 
                     <!-- Step 1 -->
                     <div class="step-content active" id="step1">
-                        <h3 class="text-3xl font-extrabold mb-2">Hizmet Seçin</h3>
-                        <p class="text-slate-400 text-sm mb-8">Başlamak istediğiniz alanı belirleyin.</p>
-                        <div class="grid grid-cols-2 gap-4">
-                            <button onclick="selectService('SEO İçerik')" class="p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 transition-all text-left">
-                                <div class="text-blue-600 mb-3">🎯</div>
-                                <div class="font-extrabold text-sm text-slate-900">SEO İçerik</div>
+                        <h3 class="text-3xl font-black mb-3 tracking-tight text-slate-900">Neye ihtiyacınız var?</h3>
+                        <p class="text-slate-400 text-sm mb-10 font-medium italic">Size en uygun uzman ekibi yönlendirelim.</p>
+                        <div class="grid grid-cols-2 gap-5">
+                            <button onclick="selectService('SEO İçerik')" class="p-6 rounded-[28px] border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 hover:bg-white hover:shadow-xl transition-all text-left group">
+                                <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                                <div class="font-black text-[13px] text-slate-900 uppercase tracking-wider">SEO İçerik</div>
                             </button>
-                            <button onclick="selectService('Blog Yazısı')" class="p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 transition-all text-left">
-                                <div class="text-blue-600 mb-3">✍️</div>
-                                <div class="font-extrabold text-sm text-slate-900">Blog Yazısı</div>
+                            <button onclick="selectService('Blog Yazısı')" class="p-6 rounded-[28px] border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 hover:bg-white hover:shadow-xl transition-all text-left group">
+                                <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">✍️</div>
+                                <div class="font-black text-[13px] text-slate-900 uppercase tracking-wider">Blog Yazısı</div>
                             </button>
-                            <button onclick="selectService('Copywriting')" class="p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 transition-all text-left">
-                                <div class="text-blue-600 mb-3">⚡</div>
-                                <div class="font-extrabold text-sm text-slate-900">Copywriting</div>
+                            <button onclick="selectService('Copywriting')" class="p-6 rounded-[28px] border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 hover:bg-white hover:shadow-xl transition-all text-left group">
+                                <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">⚡</div>
+                                <div class="font-black text-[13px] text-slate-900 uppercase tracking-wider">Copywriting</div>
                             </button>
-                            <button onclick="selectService('Strateji')" class="p-6 rounded-3xl border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 transition-all text-left">
-                                <div class="text-blue-600 mb-3">💎</div>
-                                <div class="font-extrabold text-sm text-slate-900">Strateji</div>
+                            <button onclick="selectService('Strateji')" class="p-6 rounded-[28px] border-2 border-slate-50 bg-slate-50/50 hover:border-blue-500 hover:bg-white hover:shadow-xl transition-all text-left group">
+                                <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">💎</div>
+                                <div class="font-black text-[13px] text-slate-900 uppercase tracking-wider">Strateji</div>
                             </button>
                         </div>
                     </div>
 
                     <!-- Step 2 -->
                     <div class="step-content" id="step2">
-                        <h3 class="text-3xl font-extrabold mb-8">İletişim Bilgileri</h3>
-                        <div class="space-y-6">
+                        <h3 class="text-3xl font-black mb-10 tracking-tight">Kanalı açalım.</h3>
+                        <div class="space-y-8">
                             <div>
-                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-2 mb-2 block">E-Posta Adresiniz</label>
-                                <input type="email" id="emailInput" placeholder="ornek@marka.com" class="w-full bg-slate-50 border-2 border-transparent rounded-2xl px-6 py-4 text-lg font-bold focus:border-blue-500 focus:bg-white focus:outline-none transition-all">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2 mb-3 block">KURUMSAL E-POSTA</label>
+                                <input type="email" id="emailInput" placeholder="is@marka.com" class="w-full bg-slate-50 border-2 border-transparent rounded-[20px] px-8 py-5 text-lg font-bold focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-50 transition-all">
                             </div>
-                            <button onclick="goToStep(3)" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-extrabold hover:bg-blue-600 transition-all">İLERLE</button>
+                            <button onclick="goToStep(3)" class="w-full bg-slate-900 text-white py-6 rounded-[20px] font-black text-sm tracking-widest hover:bg-blue-600 transition-all shadow-xl shadow-slate-200">DEVAM ET</button>
                         </div>
                     </div>
 
                     <!-- Step 3 -->
                     <div class="step-content" id="step3">
-                        <h3 class="text-3xl font-extrabold mb-8">Proje Detayları</h3>
-                        <div class="space-y-6">
-                            <textarea id="detailsInput" placeholder="Hedeflerinizden bahsedin..." class="w-full bg-slate-50 border-2 border-transparent rounded-2xl px-6 py-4 text-lg font-bold focus:border-blue-500 focus:bg-white focus:outline-none transition-all h-32 resize-none"></textarea>
-                            <button onclick="finishForm()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-extrabold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all">TEKLİF AL</button>
+                        <h3 class="text-3xl font-black mb-10 tracking-tight">Hedefiniz nedir?</h3>
+                        <div class="space-y-8">
+                            <textarea id="detailsInput" placeholder="Projenizden kısaca bahsedin..." class="w-full bg-slate-50 border-2 border-transparent rounded-[24px] px-8 py-5 text-lg font-bold focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-50 transition-all h-40 resize-none"></textarea>
+                            <button onclick="finishForm()" class="w-full bg-blue-600 text-white py-6 rounded-[20px] font-black text-sm tracking-widest hover:bg-blue-700 shadow-2xl shadow-blue-200 transition-all uppercase">Teklif Oluştur</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Success State -->
-                <div id="successSection" class="hidden py-10 flex flex-col items-center text-center space-y-6">
-                    <div class="w-20 h-20 bg-green-500 text-white rounded-[30px] flex items-center justify-center text-4xl shadow-xl shadow-green-100">✓</div>
-                    <h3 class="text-4xl font-extrabold">Başarılı!</h3>
-                    <p class="text-slate-500 font-medium">Talebiniz uzmanlarımıza ulaştı. 24 saat içinde dönüş yapacağız.</p>
-                    <button onclick="resetForm()" class="text-blue-600 font-bold hover:underline">Yeni bir talep oluştur</button>
+                <div id="successSection" class="hidden py-14 flex flex-col items-center text-center">
+                    <div class="w-24 h-24 bg-green-500 text-white rounded-[32px] flex items-center justify-center text-5xl shadow-2xl shadow-green-200 animate-bounce mb-8">✓</div>
+                    <h3 class="text-4xl font-black mb-4">Harika!</h3>
+                    <p class="text-slate-500 font-semibold mb-8 max-w-xs mx-auto">Dosyanız oluşturuldu. İçerik stratejistlerimiz sizi arayacak.</p>
+                    <button onclick="resetForm()" class="text-blue-600 font-black text-xs uppercase tracking-widest border-b-2 border-blue-600 pb-1">Yeni Talep</button>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
+
+    <!-- SAYFA 2: İçerik Türleri (Gelişmiş Tasarım) -->
+    <section id="turler" class="py-32 px-6 lg:px-20 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                <div class="max-w-2xl">
+                    <div class="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-4">Portfolyomuz</div>
+                    <h2 class="text-5xl lg:text-7xl font-extrabold tracking-tighter text-slate-900 leading-none">
+                        Zengin <br>Ekosistem.
+                    </h2>
+                </div>
+                <p class="text-slate-500 text-lg font-medium max-w-md italic border-l-4 border-blue-600 pl-6 py-2">
+                    Markanızın her temas noktasında aynı kalite standardını koruyoruz.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Blog -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-blue-600">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-[20px] flex items-center justify-center text-3xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">📝</div>
+                        <div class="text-slate-200 font-black text-5xl group-hover:text-blue-100 transition-colors">01</div>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Otorite Blogları</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Sadece okunmak için değil, Google'da en üstte kalmak için tasarlanan derinlemesine rehberler.</p>
+                </div>
+
+                <!-- Ürün Açıklaması -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-purple-600">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-[20px] flex items-center justify-center text-3xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-500">🛒</div>
+                        <div class="text-slate-200 font-black text-5xl group-hover:text-purple-100 transition-colors">02</div>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Dönüşüm Metinleri</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">E-ticaret sepetlerini dolduran, teknik detayları faydaya dönüştüren ikna edici açıklamalar.</p>
+                </div>
+
+                <!-- Sosyal Medya -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-pink-600">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-16 h-16 bg-pink-50 text-pink-600 rounded-[20px] flex items-center justify-center text-3xl group-hover:bg-pink-600 group-hover:text-white transition-all duration-500">📱</div>
+                        <div class="text-slate-200 font-black text-5xl group-hover:text-pink-100 transition-colors">03</div>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Viral Sosyal Medya</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Marka sesinizi dijital trendlerle birleştiren, yüksek etkileşimli ve paylaşılabilir içerikler.</p>
+                </div>
+
+                <!-- Backlink -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-orange-600">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-16 h-16 bg-orange-50 text-orange-600 rounded-[20px] flex items-center justify-center text-3xl group-hover:bg-orange-600 group-hover:text-white transition-all duration-500">🔗</div>
+                        <div class="text-slate-200 font-black text-5xl group-hover:text-orange-100 transition-colors">04</div>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">PR & Backlink</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Haber siteleri ve büyük bloglar için hazırlanan, link gücü yüksek prestij yazıları.</p>
+                </div>
+
+                <!-- Kategori -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-emerald-600">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-[20px] flex items-center justify-center text-3xl group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500">📂</div>
+                        <div class="text-slate-200 font-black text-5xl group-hover:text-emerald-100 transition-colors">05</div>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Kategori Mimarisi</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Hiyerarşiyi güçlendiren, kullanıcıyı aradığına yönlendiren stratejik kategori metinleri.</p>
+                </div>
+
+                <!-- Landing Page -->
+                <div class="service-card glass p-10 rounded-[40px] group border-b-8 border-b-cyan-600">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-16 h-16 bg-cyan-50 text-cyan-600 rounded-[20px] flex items-center justify-center text-3xl group-hover:bg-cyan-600 group-hover:text-white transition-all duration-500">🚀</div>
+                        <div class="text-slate-200 font-black text-5xl group-hover:text-cyan-100 transition-colors">06</div>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tight">Varış Sayfaları</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Kampanyalarınızın kalbi olan, yüksek conversion odaklı tek sayfa metin yapıları.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAYFA 3: Süreç (Typography-Heavy Modern Design) -->
+    <section id="surec" class="py-32 bg-slate-950 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 50px 50px;"></div>
+        <div class="blob w-[50rem] h-[50rem] bg-blue-900/30 -bottom-[20%] -right-[10%]"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col items-center text-center mb-28">
+                <div class="bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] mb-6">Workflow</div>
+                <h2 class="text-6xl lg:text-8xl font-black tracking-tighter mb-6 leading-none">Ustalıkla <br>İşlenmiş Süreç.</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Adım 1 -->
+                <div class="glass-dark p-10 rounded-[48px] relative group border-t-2 border-white/5">
+                    <div class="process-num">01</div>
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-blue-500 font-black mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all">01</div>
+                    <h5 class="text-2xl font-black mb-4 tracking-tight">Derin Analiz</h5>
+                    <p class="text-slate-400 text-sm leading-relaxed font-medium">Anahtar kelime boşluklarını, rakip stratejilerini ve marka sesini saniyeler içinde haritalandırıyoruz.</p>
+                </div>
+
+                <!-- Adım 2 -->
+                <div class="glass-dark p-10 rounded-[48px] relative group mt-0 md:mt-12 border-t-2 border-white/5">
+                    <div class="process-num">02</div>
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-purple-500 font-black mb-8 group-hover:bg-purple-600 group-hover:text-white transition-all">02</div>
+                    <h5 class="text-2xl font-black mb-4 tracking-tight">Yaratıcı Yazım</h5>
+                    <p class="text-slate-400 text-sm leading-relaxed font-medium">Sektör uzmanı yazarlarımız, yapay zekanın verimliliğini insan dokunuşuyla birleştirip başyapıtlar yaratır.</p>
+                </div>
+
+                <!-- Adım 3 -->
+                <div class="glass-dark p-10 rounded-[48px] relative group border-t-2 border-white/5">
+                    <div class="process-num">03</div>
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-pink-500 font-black mb-8 group-hover:bg-pink-600 group-hover:text-white transition-all">03</div>
+                    <h5 class="text-2xl font-black mb-4 tracking-tight">Kusursuz Editörlük</h5>
+                    <p class="text-slate-400 text-sm leading-relaxed font-medium">Her bir cümle; SEO uyumu, intihal, doğruluk ve akıcılık testlerinden 3 aşamalı olarak geçer.</p>
+                </div>
+
+                <!-- Adım 4 -->
+                <div class="glass-dark p-10 rounded-[48px] relative group mt-0 md:mt-12 border-t-2 border-white/5">
+                    <div class="process-num">04</div>
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-emerald-500 font-black mb-8 group-hover:bg-emerald-600 group-hover:text-white transition-all">04</div>
+                    <h5 class="text-2xl font-black mb-4 tracking-tight">Performans Teslimi</h5>
+                    <p class="text-slate-400 text-sm leading-relaxed font-medium">İçerikleriniz sadece teslim edilmez; yayına hazır şekilde, tam raporlamasıyla panelinize aktarılır.</p>
+                </div>
+            </div>
+            
+            <div class="mt-24 flex flex-col items-center">
+                <button class="bg-blue-600 text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.3em] hover:bg-white hover:text-slate-950 transition-all shadow-2xl shadow-blue-500/20">Ekosisteme Katılın</button>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="px-6 lg:px-20 py-8 bg-white/40 border-t border-slate-100 flex justify-between items-center z-50">
-        <div class="flex items-center gap-3">
-            <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sistem Aktif: 12 Uzman Çevrimiçi</span>
+    <footer class="px-6 lg:px-20 py-20 bg-white border-t border-slate-100 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
+            <div class="max-w-xs">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="bg-slate-900 text-white w-8 h-8 rounded-lg flex items-center justify-center font-extrabold text-xl">S</div>
+                    <h1 class="font-extrabold text-xl tracking-tighter">Sempeak</h1>
+                </div>
+                <p class="text-slate-400 text-sm font-medium leading-relaxed">İçerik stratejisinde yeni nesil standartlar belirleyen Sempeak Content Agency ile markanızın sesini güçlendirin.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-24">
+                <div>
+                    <h6 class="font-black text-[10px] uppercase tracking-[0.2em] text-slate-900 mb-6">Navigasyon</h6>
+                    <ul class="space-y-4 text-slate-400 text-[11px] font-bold uppercase tracking-widest">
+                        <li><a href="#" class="hover:text-blue-600 transition-colors">Hizmetler</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition-colors">Süreç</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition-colors">Yazarlar</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="font-black text-[10px] uppercase tracking-[0.2em] text-slate-900 mb-6">Bize Ulaşın</h6>
+                    <ul class="space-y-4 text-slate-400 text-[11px] font-bold uppercase tracking-widest">
+                        <li><a href="#" class="hover:text-blue-600 transition-colors">Teklif Al</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition-colors">Destek</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition-colors">Kariyer</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="text-[10px] font-bold text-slate-300 uppercase">SEMPEAK © 2024</div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-16 mt-16 border-t border-slate-50 gap-6">
+            <div class="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">SEMPEAK CONTENT STUDIO © 2024</div>
+            <div class="flex gap-10 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <a href="#" class="hover:text-blue-600 transition-colors">Gizlilik Politikası</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">Kullanım Şartları</a>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -156,10 +333,10 @@
             const dots = document.getElementById('progressDots').children;
             for(let i=0; i<dots.length; i++) {
                 if(i < step) {
-                    dots[i].classList.replace('w-3', 'w-12');
+                    dots[i].classList.replace('w-4', 'w-14');
                     dots[i].classList.replace('bg-slate-100', 'bg-slate-900');
                 } else {
-                    dots[i].classList.replace('w-12', 'w-3');
+                    dots[i].classList.replace('w-14', 'w-4');
                     dots[i].classList.replace('bg-slate-900', 'bg-slate-100');
                 }
             }
