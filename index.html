@@ -1,0 +1,287 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  ChevronRight, 
+  Send, 
+  CheckCircle, 
+  Package, 
+  PenTool, 
+  Target, 
+  Zap, 
+  ArrowLeft,
+  MousePointer2,
+  Sparkles,
+  MessageSquare // Eksik olan ikon eklendi
+} from 'lucide-react';
+
+const App = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    service: '',
+    email: '',
+    budget: 'orta',
+    details: ''
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Sayfa yüklendiğinde hafif bir giriş efekti
+  useEffect(() => {
+    setIsAnimating(true);
+  }, []);
+
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
+
+  const services = [
+    { id: 'seo', name: 'SEO İçerik', icon: <Target size={20} />, color: 'bg-blue-500' },
+    { id: 'blog', name: 'Blog Yazısı', icon: <PenTool size={20} />, color: 'bg-purple-500' },
+    { id: 'copy', name: 'Copywriting', icon: <Zap size={20} />, color: 'bg-orange-500' },
+    { id: 'strategy', name: 'Strateji', icon: <Sparkles size={20} />, color: 'bg-emerald-500' },
+  ];
+
+  return (
+    <div className="h-screen w-full bg-slate-50 text-slate-900 font-sans flex flex-col overflow-hidden select-none">
+      {/* Header */}
+      <nav className="flex items-center justify-between px-10 py-5 bg-white/60 backdrop-blur-xl border-b border-slate-200/50 z-50">
+        <div className="flex items-center gap-3 group cursor-pointer">
+          <div className="bg-slate-900 text-white w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xl group-hover:rotate-12 transition-transform">
+            S
+          </div>
+          <div>
+            <h1 className="font-extrabold text-lg leading-tight tracking-tight text-slate-900">Sempeak</h1>
+            <p className="text-blue-600 text-[10px] uppercase tracking-[0.2em] font-black">İçerik Departmanı</p>
+          </div>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-10">
+          {['UZMANLIKLAR', 'SÜREÇ', 'BAŞARILARIMIZ'].map((item) => (
+            <button key={item} className="text-[11px] font-black tracking-widest text-slate-400 hover:text-blue-600 transition-colors uppercase">
+              {item}
+            </button>
+          ))}
+          <button className="bg-blue-600 text-white px-7 py-3 rounded-full text-xs font-bold hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-blue-200">
+            HIZLI TEKLİF
+          </button>
+        </div>
+      </nav>
+
+      {/* Hero Body */}
+      <main className="flex-1 flex items-stretch px-10 lg:px-20 overflow-hidden relative">
+        
+        {/* Animated Background Elements */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-200/30 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-200/20 rounded-full blur-[100px]" />
+
+        {/* Left Side: Dynamic Text Content */}
+        <div className={`w-full lg:w-5/12 flex flex-col justify-center pr-12 transition-all duration-1000 ${isAnimating ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-slate-200 px-4 py-2 rounded-2xl shadow-sm mb-8 w-fit">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <span className="text-[11px] font-bold text-slate-600 tracking-wider uppercase">Yapay Zeka Destekli SEO</span>
+          </div>
+          
+          <h2 className="text-5xl xl:text-6xl font-black leading-[1.05] text-slate-900 mb-6 tracking-tight">
+            Dijitalde <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Otorite</span> <br />
+            Kurma Vakti.
+          </h2>
+          
+          <p className="text-slate-500 text-lg max-w-sm leading-relaxed mb-10">
+            Statik içeriklerden sıkıldınız mı? Veri madenciliği ve kreatif yazımı birleştirerek markanızı birer bilgi merkezine dönüştürüyoruz.
+          </p>
+
+          <div className="flex items-center gap-6">
+            <div className="flex -space-x-3">
+              {[1,2,3,4].map(i => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold overflow-hidden">
+                  <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 15}`} alt="user" />
+                </div>
+              ))}
+            </div>
+            <div className="text-sm">
+              <div className="font-bold text-slate-900">500+ Mutlu Partner</div>
+              <div className="text-slate-400 text-xs italic">Başarıya giden yolda beraberiz.</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: Step-by-Step Interactive Form */}
+        <div className={`w-full lg:w-7/12 flex items-center justify-center transition-all duration-1000 delay-300 ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="bg-white w-full max-w-xl rounded-[40px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] border border-slate-100 p-10 relative overflow-hidden group">
+            
+            {/* Form Progress Bar */}
+            {!isSubmitted && (
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-slate-50 flex">
+                <div 
+                  className="h-full bg-blue-600 transition-all duration-500 ease-out" 
+                  style={{ width: `${(step / 3) * 100}%` }}
+                />
+              </div>
+            )}
+
+            {!isSubmitted ? (
+              <div className="min-h-[420px] flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-center mb-8">
+                    <span className="text-[10px] font-black text-blue-600 tracking-widest uppercase">ADIM {step} / 3</span>
+                    {step > 1 && (
+                      <button onClick={prevStep} className="text-slate-400 hover:text-slate-900 flex items-center gap-1 text-xs font-bold transition-colors">
+                        <ArrowLeft size={14} /> Geri
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Step 1: Service Selection */}
+                  {step === 1 && (
+                    <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
+                      <h3 className="text-3xl font-black text-slate-900 leading-tight">Nasıl yardımcı <br/>olabiliriz?</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        {services.map((s) => (
+                          <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => { setFormData({...formData, service: s.name}); nextStep(); }}
+                            className={`p-5 rounded-3xl border-2 text-left transition-all group/btn hover:scale-[1.02] active:scale-95 ${
+                              formData.service === s.name ? 'border-blue-600 bg-blue-50' : 'border-slate-100 bg-slate-50/50 hover:border-slate-200'
+                            }`}
+                          >
+                            <div className={`${s.color} text-white w-10 h-10 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-100 group-hover/btn:scale-110 transition-transform`}>
+                              {s.icon}
+                            </div>
+                            <div className="font-bold text-sm text-slate-900">{s.name}</div>
+                            <div className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-wider">Seç ve İlerle</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Step 2: Contact Info */}
+                  {step === 2 && (
+                    <div className="space-y-8 animate-in slide-in-from-right-4 duration-300">
+                      <h3 className="text-3xl font-black text-slate-900 leading-tight">Size nasıl <br/>ulaşalım?</h3>
+                      <div className="space-y-4">
+                        <div className="group relative">
+                          <input 
+                            type="email" 
+                            placeholder="E-posta adresinizi giriniz"
+                            className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-5 text-lg font-medium focus:border-blue-600 focus:outline-none transition-all focus:bg-white text-slate-900"
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          />
+                          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors">
+                            <MousePointer2 size={24} />
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {['Küçük Ölçek', 'Orta Ölçek', 'Kurumsal'].map(b => (
+                            <button 
+                              key={b}
+                              type="button"
+                              onClick={() => setFormData({...formData, budget: b})}
+                              className={`px-4 py-2 rounded-full text-[11px] font-bold transition-all ${formData.budget === b ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}
+                            >
+                              {b}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <button 
+                        type="button"
+                        disabled={!formData.email}
+                        onClick={nextStep}
+                        className="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-800 disabled:opacity-30 transition-all shadow-2xl shadow-slate-200"
+                      >
+                        Sonraki Adım <ChevronRight size={20} />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Step 3: Details & Submit */}
+                  {step === 3 && (
+                    <div className="space-y-8 animate-in slide-in-from-right-4 duration-300">
+                      <h3 className="text-3xl font-black text-slate-900 leading-tight">Projenizden kısaca <br/>bahsedin.</h3>
+                      <textarea 
+                        rows="4"
+                        placeholder="Neye ihtiyacınız var? Sınırları zorlayalım..."
+                        className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-5 text-lg font-medium focus:border-blue-600 focus:outline-none transition-all focus:bg-white resize-none text-slate-900"
+                        value={formData.details}
+                        onChange={(e) => setFormData({...formData, details: e.target.value})}
+                      />
+                      <button 
+                        type="button"
+                        onClick={handleSubmit}
+                        className="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 group/submit"
+                      >
+                        Teklifi Tamamla <Send size={20} className="group-hover/submit:translate-x-1 group-hover/submit:-translate-y-1 transition-transform" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-center gap-8 mt-10 pt-6 border-t border-slate-50 opacity-40 grayscale">
+                  <div className="font-black text-[10px] tracking-widest italic">GOOGLE PARTNER</div>
+                  <div className="font-black text-[10px] tracking-widest italic">SEMRUSH</div>
+                  <div className="font-black text-[10px] tracking-widest italic">AHREFS</div>
+                </div>
+              </div>
+            ) : (
+              <div className="py-20 flex flex-col items-center text-center space-y-6 animate-in zoom-in duration-500">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-green-400 rounded-full blur-2xl opacity-20 animate-pulse" />
+                  <div className="w-24 h-24 bg-green-500 text-white rounded-[32px] flex items-center justify-center relative rotate-12">
+                    <CheckCircle size={48} />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-4xl font-black text-slate-900">Harika!</h3>
+                  <p className="text-slate-500 max-w-xs font-medium">
+                    Stratejistlerimiz <strong>{formData.service}</strong> talebiniz için hazırlıklara başladı. 
+                  </p>
+                </div>
+                <div className="bg-slate-50 px-6 py-3 rounded-2xl text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                  15 Dakika içinde dönüş yapılacak
+                </div>
+                <button 
+                  type="button"
+                  onClick={() => { setIsSubmitted(false); setStep(1); }}
+                  className="text-blue-600 font-bold hover:text-blue-700 text-sm flex items-center gap-2"
+                >
+                  <ArrowLeft size={16} /> Başka bir talebim daha var
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
+
+      {/* Floating Status Bar */}
+      <div className="px-10 py-4 bg-slate-900 text-white flex justify-between items-center z-50">
+        <div className="flex items-center gap-8 overflow-hidden">
+          <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider animate-pulse whitespace-nowrap">
+            <span className="w-1.5 h-1.5 bg-green-400 rounded-full" /> CANLI: 12 KİŞİ ŞU AN TEKLİF ALIYOR
+          </div>
+          <div className="hidden md:block h-4 w-px bg-slate-700" />
+          <div className="hidden md:block text-[10px] font-medium text-slate-400 uppercase tracking-[0.2em]">
+            Hız Kesmeden İçerik Üretimine Devam Ediyoruz
+          </div>
+        </div>
+        <div className="flex gap-4 items-center">
+          <div className="text-[10px] font-bold text-slate-400">#ContentMatters</div>
+          <div className="bg-white/10 p-1.5 rounded-lg hover:bg-white/20 transition-colors cursor-pointer">
+            <MessageSquare size={14} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
